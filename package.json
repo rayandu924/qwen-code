@@ -48,7 +48,7 @@
     "clean": "node scripts/clean.js"
   },
   "bin": {
-    "Cliode": "bundle/gemini.js"
+    "qwen": "bundle/gemini.js"
   },
   "files": [
     "bundle/",

@@ -59,7 +59,7 @@ export interface CliArgs {
   openaiLogging: boolean | undefined;
   openaiApiKey: string | undefined;
   openaiBaseUrl: string | undefined;
-  openaiModel: string | undefined;
+  
 }
 
 export async function parseArguments(): Promise<CliArgs> {
@@ -198,10 +198,7 @@ export async function parseArguments(): Promise<CliArgs> {
       type: 'string',
       description: 'OpenAI base URL. Overrides the OPENAI_BASE_URL environment variable.',
     })
-    .option('openai-model', {
-      type: 'string',
-      description: 'OpenAI model name. Overrides the OPENAI_MODEL environment variable.',
-    })
+    
 
     .version(await getCliVersion()) // This will enable the --version flag based on package.json
     .alias('v', 'version')
@@ -277,10 +274,7 @@ export async function loadCliConfig(
     process.env.OPENAI_BASE_URL = argv.openaiBaseUrl;
   }
 
-  // Handle OpenAI model from command line
-  if (argv.openaiModel) {
-    process.env.OPENAI_MODEL = argv.openaiModel;
-  }
+  
 
   // Set the context filename in the server's memoryTool module BEFORE loading memory
   // TODO(b/343434939): This is a bit of a hack. The contextFileName should ideally be passed
