@@ -59,6 +59,7 @@ export interface CliArgs {
   openaiLogging: boolean | undefined;
   openaiApiKey: string | undefined;
   openaiBaseUrl: string | undefined;
+  openaiModel: string | undefined;
 }
 
 export async function parseArguments(): Promise<CliArgs> {
@@ -191,11 +192,15 @@ export async function parseArguments(): Promise<CliArgs> {
     })
     .option('openai-api-key', {
       type: 'string',
-      description: 'OpenAI API key to use for authentication',
+      description: 'OpenAI API key. Overrides the OPENAI_API_KEY environment variable.',
     })
     .option('openai-base-url', {
       type: 'string',
-      description: 'OpenAI base URL (for custom endpoints)',
+      description: 'OpenAI base URL. Overrides the OPENAI_BASE_URL environment variable.',
+    })
+    .option('openai-model', {
+      type: 'string',
+      description: 'OpenAI model name. Overrides the OPENAI_MODEL environment variable.',
     })
 
     .version(await getCliVersion()) // This will enable the --version flag based on package.json
@@ -270,6 +275,11 @@ export async function loadCliConfig(
   // Handle OpenAI base URL from command line
   if (argv.openaiBaseUrl) {
     process.env.OPENAI_BASE_URL = argv.openaiBaseUrl;
+  }
+
+  // Handle OpenAI model from command line
+  if (argv.openaiModel) {
+    process.env.OPENAI_MODEL = argv.openaiModel;
   }
 
   // Set the context filename in the server's memoryTool module BEFORE loading memory

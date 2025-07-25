@@ -116,7 +116,7 @@ export async function createContentGeneratorConfig(
 
   if (authType === AuthType.USE_OPENAI && openaiApiKey) {
     contentGeneratorConfig.apiKey = openaiApiKey;
-    contentGeneratorConfig.model = process.env.OPENAI_MODEL || '';
+    contentGeneratorConfig.model = process.env.OPENAI_MODEL || 'qwen3:1.7b';
 
     return contentGeneratorConfig;
   }
